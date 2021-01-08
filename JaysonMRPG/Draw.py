@@ -5,7 +5,7 @@ import os, time
 def statusbar(userobj):
     os.system('cls')
     print("-----------------------------------------------")
-    print("HitPoints : ", userobj.Health)
+    print("Name : ", userobj.name)
     print("level : ",userobj.Level)
     print("Exp : ",userobj.EXP)
     print("Currently equipped weapon = ", userobj.Equipped)
@@ -13,7 +13,7 @@ def statusbar(userobj):
     print("-----------------------------------------------")
 
 def mainmenu():
-
+    os.system('cls')
     print("-----------------------------------------------")
     print("       --------   CLOUD RPG   --------         ")
     print("-----------------------------------------------")

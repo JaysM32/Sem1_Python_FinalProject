@@ -27,7 +27,7 @@ def part1(userobj):
     print("---------------------------------------------------")
     print("Current Obejctive : kill 20 enemies")
     input("press enter to continue")
-    userobj.story = 1
+    userobj.story = 1 #checker for the program to know that the user is in story mode
 
 
 
@@ -53,10 +53,10 @@ def part2(userobj):
         print("---------------------------------------------------")
         print("Current Obejctive : kill 35 enemies")
         input("press enter to continue")
-        userobj.story = 2
-        userobj.objective = 35
+        userobj.story = 2 #checker for the program to know that the user is in story mode (this means its at part 2)
+        userobj.objective = 35 #changes the target / no of enemy to kill
 
-    else:
+    else: #means that you havent completed the quest / objective
         os.system('cls')
         print("----------You have yet to complete the mission------------")
         time.sleep(5)
@@ -76,11 +76,11 @@ def part3(userobj):
         input("press enter to continue")
         print("----------------------------------------------------")
         print("Congratulations for making it this far ! ")
-        userobj.story = 3
-        userobj.UserInventory.setdefault("Excalibur", 0)
+        userobj.story = 0 #elims
+        userobj.UserInventory.setdefault("Excalibur", 0) # gives the user the sword
         userobj.UserInventory["Excalibur"] += 1
 
-    else:
+    else: #means that you havent completed the quest / objective
         os.system('cls')
         print("----------You have yet to complete the mission------------")
         time.sleep(5)

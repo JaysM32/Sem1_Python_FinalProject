@@ -1,5 +1,5 @@
 #sleep,craft,shop is in here
-#import JaysonMRPG.User as user
+import JaysonMRPG.User as user
 
 import os, time
 import Draw as draw
@@ -12,12 +12,11 @@ recycleavail = { "Iron Ingots":10, "Wood":10, "Red Liquids": 5, }
 materials = ["Iron", "Wood", "Red Liquids"]
 
 def inventory(userobj): # display inventory
-    os.system('cls')
     print("-----------Inventory-----------")
-    count = 1
-    for item in userobj.UserInvetory.keys():
+    count = 0
+    for item in userobj.UserInventory.keys():
         count += 1
-        print(f"{count}. {item} - {userobj.UserInvetory}")
+        print(f"{count}. {item} - {userobj.UserInventory[item]}")
 
 def sleep(userobj): # sleep / heal
     os.system('cls')
@@ -79,9 +78,8 @@ def sleep(userobj): # sleep / heal
 
 
 def shop(userobj): # buy items
-    os.system('cls')
-    print("You entered the shop.")
     while True:
+        os.system('cls')
         print("----------Ethereal Fowl Shop-------------")
         print(f"your current gold amount : {userobj.UserInventory['Gold Coins']}")
         print("The shop is currently selling ")
@@ -93,11 +91,12 @@ def shop(userobj): # buy items
         print("-----------------------------------------")
         print("What would you like to purchase ?")
         print("input 'exit' to exit the shop")
-        buyChoice = str(input("input the exact name in the list : "))
-        if buyChoice == 0: break
+        buyChoice = str(input("input the EXACT NAME in the list : "))
+        if buyChoice == "exit": break
         amt = int(input("input purchase amount : "))
         if shopinventory[buyChoice] != 0 : #buy the selected item
             if userobj.UserInventory["Gold Coins"] >= (amt*shopPrice[buyChoice]):
+                userobj.UserInventory["Gold Coins"] = userobj.UserInventory["Gold Coins"] - shopPrice[buyChoice]
                 userobj.UserInventory.setdefault(buyChoice,0)
                 userobj.UserInventory[buyChoice] += amt
                 shopinventory[buyChoice] = shopinventory[buyChoice] - amt
@@ -108,9 +107,8 @@ def shop(userobj): # buy items
 
 
 def blacksmith(userobj): #craft items
-    os.system('cls')
-    print("You entered the Blacksmith ")
     while True:
+        os.system('cls')
         print("----------Curious Forge-------------")
         print("Current inventory:")
         print(f"Gold Coins : {userobj.UserInventory['Gold Coins']}")
@@ -177,38 +175,45 @@ def blacksmith(userobj): #craft items
 
 
 def recycle_sell(userobj): # recycle items
-    print("----------The Recycle Station-------------")
-    inventory()
-    print("------------------------------------------")
-    print("Current shop inventory:")
-    print(recycleavail)
-    print("------------------------------------------")
-    print("Able to Recycle: ")
-    print("Sword | Bow | Iron Armor | Health Potion")
-    print("what do you wish to recycle ?")
-    cycleChoice = input("type the EXACT name: ")
-    if cycleChoice in userobj.UserInventory.keys(): #recycle the selected item
-        if cycleChoice == "Sword":
-            if recycleavail["Iron Ingots"] >= 1:
-                userobj.UserInventory.setdefault("Iron Ingots", 0)
-                userobj.UserInventory["Iron Ingots"] += 1
-        elif cycleChoice == "Bow":
-            if recycleavail["Wood"] >= 1:
-                userobj.UserInventory.setdefault("Wood", 0)
-                userobj.UserInventory["Wood"] += 1
-        elif cycleChoice == "Iron Armor":
-            if recycleavail["Iron Ingots"] >= 2:
-                userobj.UserInventory.setdefault("Iron Ingots", 0)
-                userobj.UserInventory["Iron Ingots"] += 2
-        elif cycleChoice == "Health Potion":
-            if recycleavail["Red Liquids"] >= 1:
-                userobj.UserInventory.setdefault("Red Liquids", 0)
-                userobj.UserInventory["Red Liquids"] += 1
-        else:
+    while True:
+        print("----------The Recycle Station-------------")
+        inventory(userobj)
+        print("------------------------------------------")
+        print("Current shop inventory:")
+        print(recycleavail)
+        print("------------------------------------------")
+        print("Able to Recycle: ")
+        print("Sword | Bow | Iron Armor | Health Potion")
+        print("what do you wish to recycle ?")
+        cycleChoice = input("type the EXACT name: ")
+        if cycleChoice in userobj.UserInventory.keys(): #recycle the selected item
+            if cycleChoice == "Sword":
+                if recycleavail["Iron Ingots"] >= 1:
+                    userobj.UserInventory.setdefault("Iron Ingots", 0)
+                    userobj.UserInventory["Iron Ingots"] += 1
+                    userobj.UserInventory["Sword"] = userobj.UserInventory["Sword"] -1
+            elif cycleChoice == "Bow":
+                if recycleavail["Wood"] >= 1:
+                    userobj.UserInventory.setdefault("Wood", 0)
+                    userobj.UserInventory["Wood"] += 1
+                    userobj.UserInventory["Bow"] = userobj.UserInventory["Bow"] - 1
+            elif cycleChoice == "Iron Armor":
+                if recycleavail["Iron Ingots"] >= 2:
+                    userobj.UserInventory.setdefault("Iron Ingots", 0)
+                    userobj.UserInventory["Iron Ingots"] += 2
+                    userobj.UserInventory["Iron Armor"] = userobj.UserInventory["Iron Armor"] - 1
+            elif cycleChoice == "Health Potion":
+                if recycleavail["Red Liquids"] >= 1:
+                    userobj.UserInventory.setdefault("Red Liquids", 0)
+                    userobj.UserInventory["Red Liquids"] += 1
+                    userobj.UserInventory["Health Potion"] = userobj.UserInventory["Health Potion"] - 1
+            else:
                 print("not enough materials from the Station")
                 print("------------------------------------------")
-    else:
-        print("Incorrect Input !")
-        print("------------------------------------------")
+        else:
+            print("Incorrect Input !")
+            print("------------------------------------------")
 
 
+
+#testuser = user.User("Jude", "Male", {"INT":3, "STR":3, "AGI":3, "LCK":3})

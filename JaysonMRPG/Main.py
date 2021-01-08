@@ -52,7 +52,7 @@ def main():
                     elif choice3 == 5:
                         town.recycle_sell(gameuser)
                     elif choice3 == 6 and count >= 2:
-                        if gameuser.story == 0: str.part1(gameuser)
+                        if gameuser.story == 0: str.part1(gameuser) # once executed, cant go back to here
                         elif gameuser.story == 1: str.part2(gameuser)
                         elif gameuser.story == 2: str.part3(gameuser)
                     else:

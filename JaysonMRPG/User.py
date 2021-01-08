@@ -19,22 +19,33 @@ class User: #User class and account when playing.
         self.strComplt = False
 
 
+#testuser = user.User("Jude", "Male", {"INT":3, "STR":3, "AGI":3, "LCK":3})
+
+
+
+
 def createUser (): #UserCreation
     os.system('cls')
     name = str(input("Please Create a name = "))
     gender = str(input("Pick a gender. ( Female or Male )\n( write exactly as shown ): "))
     currentpoints = 12
-    Attr = {"INT":0, "STR":0, "AGI":0, "LCK":0} #attributes
+    Attr = {"INT":0, "STR":0, "AGI":0, "LCK":0} #attributes helps in dungeon
     while True:
-        if currentpoints == 0: break
+        if currentpoints <= 0:
+            print("are you sure ? (Y/N)")
+            makesure = str(input("input either Y or N: "))
+            if makesure.lower() == "y":
+                break
+            elif makesure.lower()=="n":
+                pass
         print("-----------------------------------------------")
         print("You currently have", currentpoints, "points to spend on attributes")
         print(Attr)
-        pick = str(input("Pick an Attribute to spend Points on: "))
+        pick = str(input("Pick an Attribute to spend Points on: "))#attribute maker
         if pick.upper() not in Attr.keys():
             print("error input")
         else:
-            spend = int(input("Change to: "))
+            spend = int(input("Change / Add to: "))
             if spend <= currentpoints:
                 if Attr[pick.upper()] >= spend:
                     currentpoints = currentpoints + Attr[pick.upper()]
@@ -44,8 +55,10 @@ def createUser (): #UserCreation
             else: print("not enough points")
             currentpoints = currentpoints - spend
 
-    user1 = User(name, gender, Attr)
 
+
+    user1 = User(name, gender, Attr)
+    os.system('cls')
     print("-----------------------------------------------")
     print("User Created !")
     print("Name : ",name)
@@ -57,7 +70,7 @@ def createUser (): #UserCreation
     return user1
 
 
-def checklevel(userobj): # checks the level of the user and add 1 attr point
+def checklevel(userobj): # checks the level of the user and add 1 attr point when level up
     if userobj.EXP >= 10:
         userobj.EXP = 0
         userobj.Level += 1
