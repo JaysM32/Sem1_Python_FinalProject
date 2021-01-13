@@ -72,7 +72,7 @@ def createUser (): #UserCreation
 
 def checklevel(userobj): # checks the level of the user and add 1 attr point when level up
     if userobj.EXP >= 10:
-        userobj.EXP = 0
+        userobj.EXP = userobj.EXP - 10
         userobj.Level += 1
         print("-----------------------------------------------")
         print("You currently have 1 points to spend on attributes")

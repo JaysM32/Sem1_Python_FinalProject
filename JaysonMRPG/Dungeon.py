@@ -1,5 +1,5 @@
 #fight enemies and recieve loot.
-import JaysonMRPG.User as user
+import User as user
 import Town as town
 import Draw as draw
 import random, os, time
@@ -69,6 +69,7 @@ def battle(userobj): # battle the enemy ( this will happen most of the time )
         os.system('cls')
         if enemyhp <= 0:
             userobj.objective = userobj.objective - 1
+            userobj.EXP += 2
             treasure(userobj)
             if userobj.story >= 1 and userobj.objective <= 0:
                 userobj.strComplt = True
@@ -96,11 +97,11 @@ def battle(userobj): # battle the enemy ( this will happen most of the time )
                 hitProb = random.randint(1, 3)
                 if hitProb == 1:
                     print("you dealt damage")
-                    enemyhp = enemyhp - 20 * (userobj.attr["STR"] * 0.2)
+                    enemyhp = enemyhp - 30 * (userobj.attr["STR"] * 0.2)
                     time.sleep(1)
                 elif hitProb == 2:
                     print("you dealt damage yet you also received some")
-                    enemyhp = enemyhp - 20 * (userobj.attr["STR"] * 0.2)
+                    enemyhp = enemyhp - 30 * (userobj.attr["STR"] * 0.2)
                     userobj.Health = userobj.Health - 8 * (1 - userobj.Armor)
                     time.sleep(1)
                 else:

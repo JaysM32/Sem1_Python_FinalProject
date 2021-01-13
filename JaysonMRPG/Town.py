@@ -1,5 +1,5 @@
 #sleep,craft,shop is in here
-import JaysonMRPG.User as user
+import User as user
 
 import os, time
 import Draw as draw
@@ -96,7 +96,7 @@ def shop(userobj): # buy items
         amt = int(input("input purchase amount : "))
         if shopinventory[buyChoice] != 0 : #buy the selected item
             if userobj.UserInventory["Gold Coins"] >= (amt*shopPrice[buyChoice]):
-                userobj.UserInventory["Gold Coins"] = userobj.UserInventory["Gold Coins"] - shopPrice[buyChoice]
+                userobj.UserInventory["Gold Coins"] = userobj.UserInventory["Gold Coins"] - shopPrice[buyChoice]*amt
                 userobj.UserInventory.setdefault(buyChoice,0)
                 userobj.UserInventory[buyChoice] += amt
                 shopinventory[buyChoice] = shopinventory[buyChoice] - amt
@@ -185,6 +185,7 @@ def recycle_sell(userobj): # recycle items
         print("Able to Recycle: ")
         print("Sword | Bow | Iron Armor | Health Potion")
         print("what do you wish to recycle ?")
+        print("type 'exit' to exit the station")
         cycleChoice = input("type the EXACT name: ")
         if cycleChoice in userobj.UserInventory.keys(): #recycle the selected item
             if cycleChoice == "Sword":
@@ -210,6 +211,7 @@ def recycle_sell(userobj): # recycle items
             else:
                 print("not enough materials from the Station")
                 print("------------------------------------------")
+        elif cycleChoice == "exit": break
         else:
             print("Incorrect Input !")
             print("------------------------------------------")
