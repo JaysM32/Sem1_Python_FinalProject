@@ -1,9 +1,9 @@
 Cloud RPG
 --------------------------
 Created by Jayson M 
-Lastest changes as of jan 6, 2021
+Lastest changes as of jan 13, 2021
 --------------------------
-Version 1.0
+Version 1.01
 --------------------------
 
 WARNINGS:
